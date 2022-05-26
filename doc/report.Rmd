@@ -1,0 +1,116 @@
+---
+date: "`r Sys.Date()`"
+author: "Byron C. Jaeger"
+title: "Mortality/graft loss prediction using CHD diagnosis data"
+output: 
+  officedown::rdocx_document:
+    mapstyles:
+      Normal: ['First Paragraph']
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, fig.cap = TRUE)
+
+library(officedown)
+library(officer)
+library(flextable)
+library(tidyverse)
+library(table.glue)
+library(targets)
+
+tar_load(tidyselect::matches('^tbl|^fig'))
+
+```
+
+Hello again!
+
+\newpage
+__Table 1__: Characteristics of patients at listing
+
+```{r}
+tbl_chars_waitlist$table
+```
+
+\newpage
+__Table 2__: Characteristics of patients at transplant
+
+```{r}
+tbl_chars_posttxpl$table
+```
+
+\newpage
+__Table 3__: Hazard ratios (95% confidence interval) for mortality within 1 year of listing among patients with congenital heart disease versus cardiomyopathy
+
+```{r}
+tbl_mdl_waitlist$chd
+```
+
+\newpage
+__Table 4__: Hazard ratios (95% confidence interval) for mortality within 1 year of listing among patients with cardiomyopathy versus congenital heart disease.
+
+```{r}
+tbl_mdl_waitlist$cmy
+```
+
+\newpage
+__Table 5__: Hazard ratios (95% confidence interval) for mortality or graft loss within 1 year of transplant among patients with congenital heart disease versus cardiomyopathy
+
+```{r}
+tbl_mdl_posttxpl$chd
+```
+
+\newpage
+__Table 6__: Hazard ratios (95% confidence interval) for mortality or graft loss within 1 year of transplant among patients with cardiomyopathy versus congenital heart disease.
+
+```{r}
+tbl_mdl_posttxpl$cmy
+```
+
+
+\newpage
+__Table 7__: Area underneath the receiver operator characteristic curve when using variables in the existing UNOS risk model versus additional diagnostic variables. 
+```{r}
+tbl_mccv$auc
+```
+
+\newpage
+__Table 8__: P-value for poor calibration when using variables in the existing UNOS risk model versus additional diagnostic variables. 
+```{r}
+tbl_mccv$gnd
+```
+
+\newpage
+__Table 9__: Index of prediction accuracy when using variables in the existing UNOS risk model versus additional diagnostic variables. 
+```{r}
+tbl_mccv$ipa
+```
+
+\newpage
+__Figure 1__: Cumulative incidence of mortality within 1 year of listing
+
+```{r}
+fig_kaplan_waitlist
+```
+
+\newpage
+__Figure 2__: Cumulative incidence of mortality within 1 year of listing, stratified by listing year.
+
+```{r}
+fig_kaplan_by_year$waitlist
+```
+
+\newpage
+__Figure 3__: Cumulative incidence of mortality or graft loss within 1 year of transplant
+
+```{r}
+fig_kaplan_posttxpl
+```
+
+\newpage
+__Figure 4__: Cumulative incidence of mortality within 1 year of listing, stratified by listing year.
+
+```{r}
+fig_kaplan_by_year$posttxpl
+```
+
